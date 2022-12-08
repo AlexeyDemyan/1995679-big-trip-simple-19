@@ -1,7 +1,7 @@
 # Проект «Большое путешествие (простой)»
 
 * Студент: [Alexey Demyanov](https://up.htmlacademy.ru/ecmascript/19/user/1995679).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Андреев](https://htmlacademy.ru/profile/id812127).
 
 ---
 
