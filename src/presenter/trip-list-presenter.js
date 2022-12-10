@@ -7,7 +7,7 @@ import { render } from '../render.js';
 export default class TripListPresenter {
   tripListComponent = new TripPointListView();
 
-  constructor({tripListContainer}) {
+  constructor(tripListContainer) {
     this.tripListContainer = tripListContainer;
   }
 

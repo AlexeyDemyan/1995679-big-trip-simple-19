@@ -1,6 +1,6 @@
 import { createElement } from '../render.js';
 
-function createDestinationItemTemplate () {
+function createDestinationTemplate () {
   return `<li class="trip-events__item"><div class="event">
   <time class="event__date" datetime="2019-03-18">MAR 18</time>
   <div class="event__type">
@@ -33,7 +33,7 @@ function createDestinationItemTemplate () {
 
 export default class DestinationItemView {
   getTemplate () {
-    return createDestinationItemTemplate();
+    return createDestinationTemplate();
   }
 
   getElement () {
