@@ -1,6 +1,37 @@
-import { createElement } from '../render.js';
+import { createElement } from "../render.js";
+import { humanizeDate } from "../utils.js";
+import { DATE_FORMAT_DATE_AND_TIME } from "../const.js";
+import {
+  getOffersForPointType,
+  getDestinationForPointId,
+} from "../mock/mockData.js";
 
-function createEditPointTemplate () {
+const renderOffersForPointType = (offers) => {
+  const result = offers.map((offer) => {
+    return `<div class="event__offer-selector">
+  <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
+  <label class="event__offer-label" for="event-offer-train-1">
+    <span class="event__offer-title">${offer.title}</span>
+    &plus;&euro;&nbsp;
+    <span class="event__offer-price">${offer.price}</span>
+  </label></div>`;
+  });
+
+  return result.join("");
+};
+
+const renderPicturesForDestination = (pictures) => {
+  return pictures
+    .map(
+      (picture) =>
+        `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`
+    )
+    .join("");
+};
+
+const createEditPointTemplate = (point) => {
+  const offersForPointType = getOffersForPointType(point);
+  const { basePrice, dateFrom, dateTo } = point;
   return `<li class="trip-events__item"><form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__type-wrapper">
@@ -76,10 +107,16 @@ function createEditPointTemplate () {
 
     <div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">From</label>
-      <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="18/03/19 12:25">
+      <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${humanizeDate(
+        dateFrom,
+        DATE_FORMAT_DATE_AND_TIME
+      )}">
       &mdash;
       <label class="visually-hidden" for="event-end-time-1">To</label>
-      <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="18/03/19 13:35">
+      <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${humanizeDate(
+        dateTo,
+        DATE_FORMAT_DATE_AND_TIME
+      )}">
     </div>
 
     <div class="event__field-group  event__field-group--price">
@@ -87,7 +124,7 @@ function createEditPointTemplate () {
         <span class="visually-hidden">Price</span>
         &euro;
       </label>
-      <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="160">
+      <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${basePrice}">
     </div>
 
     <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -101,74 +138,48 @@ function createEditPointTemplate () {
       <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
       <div class="event__available-offers">
-        <div class="event__offer-selector">
-          <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
-          <label class="event__offer-label" for="event-offer-luggage-1">
-            <span class="event__offer-title">Add luggage</span>
-            &plus;&euro;&nbsp;
-            <span class="event__offer-price">50</span>
-          </label>
-        </div>
 
-        <div class="event__offer-selector">
-          <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort" checked>
-          <label class="event__offer-label" for="event-offer-comfort-1">
-            <span class="event__offer-title">Switch to comfort</span>
-            &plus;&euro;&nbsp;
-            <span class="event__offer-price">80</span>
-          </label>
-        </div>
+        ${renderOffersForPointType(offersForPointType.offers)}
 
-        <div class="event__offer-selector">
-          <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal">
-          <label class="event__offer-label" for="event-offer-meal-1">
-            <span class="event__offer-title">Add meal</span>
-            &plus;&euro;&nbsp;
-            <span class="event__offer-price">15</span>
-          </label>
-        </div>
-
-        <div class="event__offer-selector">
-          <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats">
-          <label class="event__offer-label" for="event-offer-seats-1">
-            <span class="event__offer-title">Choose seats</span>
-            &plus;&euro;&nbsp;
-            <span class="event__offer-price">5</span>
-          </label>
-        </div>
-
-        <div class="event__offer-selector">
-          <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-          <label class="event__offer-label" for="event-offer-train-1">
-            <span class="event__offer-title">Travel by train</span>
-            &plus;&euro;&nbsp;
-            <span class="event__offer-price">40</span>
-          </label>
-        </div>
       </div>
     </section>
 
     <section class="event__section  event__section--destination">
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-      <p class="event__destination-description">Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>
+      <p class="event__destination-description">${
+        getDestinationForPointId(point).description
+      }</p>
+
+      <div class="event__photos-container">
+        <div class="event__photos-tape">
+          ${renderPicturesForDestination(
+            getDestinationForPointId(point).pictures
+          )}
+        </div>
+      </div>
+
     </section>
   </section>
 </form></li>`;
-}
+};
 
 export default class EditPointView {
-  getTemplate () {
-    return createEditPointTemplate();
+  constructor(point) {
+    this.point = point;
   }
 
-  getElement () {
+  getTemplate() {
+    return createEditPointTemplate(this.point);
+  }
+
+  getElement() {
     if (!this.element) {
       this.element = createElement(this.getTemplate());
     }
     return this.element;
   }
 
-  removeElement () {
+  removeElement() {
     this.element = null;
   }
 }

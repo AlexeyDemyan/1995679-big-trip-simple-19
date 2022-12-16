@@ -1,6 +1,6 @@
 import { createElement } from '../render.js';
 
-function createTripPointListTemplate () {
+const createTripPointListTemplate = () => {
   return '<ul class="trip-events__list"></ul>';
 }
 
