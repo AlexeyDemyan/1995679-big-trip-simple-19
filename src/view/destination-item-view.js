@@ -3,13 +3,11 @@ import { humanizeDate, capitalizeFirstLetter } from '../utils.js';
 import { DATE_FORMAT_DAY_AND_MONTH, DATE_FORMAT_TIME_ONLY } from '../const.js';
 import { getOffersForPointType, getDestinationForPointId } from '../mock/mockData.js';
 
-const renderOffersForPointType = (offers) => {
-  return offers.map((offer) => `<li class="event__offer">
+const renderOffersForPointType = (offers) => offers.map((offer) => `<li class="event__offer">
   <span class="event__offer-title">${offer.title}</span>
   &plus;&euro;&nbsp;
   <span class="event__offer-price">${offer.price}</span>
   </li>`).join('');
-};
 
 const createDestinationTemplate = (point) => {
   const offersForPointType = getOffersForPointType(point);
@@ -38,7 +36,7 @@ const createDestinationTemplate = (point) => {
     <span class="visually-hidden">Open event</span>
   </button>
 </div></li>`;
-}
+};
 
 export default class DestinationItemView {
   constructor (point) {

@@ -1,33 +1,29 @@
-import { createElement } from "../render.js";
-import { humanizeDate } from "../utils.js";
-import { DATE_FORMAT_DATE_AND_TIME } from "../const.js";
+import { createElement } from '../render.js';
+import { humanizeDate } from '../utils.js';
+import { DATE_FORMAT_DATE_AND_TIME } from '../const.js';
 import {
   getOffersForPointType,
   getDestinationForPointId,
-} from "../mock/mockData.js";
+} from '../mock/mockData.js';
 
 const renderOffersForPointType = (offers) => {
-  const result = offers.map((offer) => {
-    return `<div class="event__offer-selector">
+  const result = offers.map((offer) => `<div class="event__offer-selector">
   <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
   <label class="event__offer-label" for="event-offer-train-1">
     <span class="event__offer-title">${offer.title}</span>
     &plus;&euro;&nbsp;
     <span class="event__offer-price">${offer.price}</span>
-  </label></div>`;
-  });
+  </label></div>`);
 
-  return result.join("");
+  return result.join('');
 };
 
-const renderPicturesForDestination = (pictures) => {
-  return pictures
-    .map(
-      (picture) =>
-        `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`
-    )
-    .join("");
-};
+const renderPicturesForDestination = (pictures) => pictures
+  .map(
+    (picture) =>
+      `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`
+  )
+  .join('');
 
 const createEditPointTemplate = (point) => {
   const offersForPointType = getOffersForPointType(point);
@@ -108,15 +104,15 @@ const createEditPointTemplate = (point) => {
     <div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">From</label>
       <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${humanizeDate(
-        dateFrom,
-        DATE_FORMAT_DATE_AND_TIME
-      )}">
+    dateFrom,
+    DATE_FORMAT_DATE_AND_TIME
+  )}">
       &mdash;
       <label class="visually-hidden" for="event-end-time-1">To</label>
       <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${humanizeDate(
-        dateTo,
-        DATE_FORMAT_DATE_AND_TIME
-      )}">
+    dateTo,
+    DATE_FORMAT_DATE_AND_TIME
+  )}">
     </div>
 
     <div class="event__field-group  event__field-group--price">
@@ -147,14 +143,14 @@ const createEditPointTemplate = (point) => {
     <section class="event__section  event__section--destination">
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
       <p class="event__destination-description">${
-        getDestinationForPointId(point).description
-      }</p>
+  getDestinationForPointId(point).description
+}</p>
 
       <div class="event__photos-container">
         <div class="event__photos-tape">
           ${renderPicturesForDestination(
-            getDestinationForPointId(point).pictures
-          )}
+    getDestinationForPointId(point).pictures
+  )}
         </div>
       </div>
 
