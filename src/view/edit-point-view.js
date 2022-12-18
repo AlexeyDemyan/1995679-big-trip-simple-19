@@ -6,17 +6,13 @@ import {
   getDestinationForPointId,
 } from '../mock/mockData.js';
 
-const renderOffersForPointType = (offers) => {
-  const result = offers.map((offer) => `<div class="event__offer-selector">
+const renderOffersForPointType = (offers) => offers.map((offer) => `<div class="event__offer-selector">
   <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
   <label class="event__offer-label" for="event-offer-train-1">
     <span class="event__offer-title">${offer.title}</span>
     &plus;&euro;&nbsp;
     <span class="event__offer-price">${offer.price}</span>
-  </label></div>`);
-
-  return result.join('');
-};
+  </label></div>`).join('');
 
 const renderPicturesForDestination = (pictures) => pictures
   .map(

@@ -2,7 +2,7 @@ import FilterView from './view/list-filter-view.js';
 import ListSortView from './view/list-sort-view.js';
 import { render } from './render.js';
 import TripListPresenter from './presenter/trip-list-presenter.js';
-import PointsModel from './model/point-model.js';
+import PointsModel from './model/points-model.js';
 
 const tripMainElement = document.querySelector('.trip-main');
 const tripMainTripControlsElement = tripMainElement.querySelector('.trip-main__trip-controls');
