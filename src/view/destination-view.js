@@ -38,7 +38,7 @@ const createDestinationTemplate = (point) => {
 </div></li>`;
 };
 
-export default class DestinationItemView {
+export default class DestinationView {
   #element = null;
   #point = null;
 
@@ -55,6 +55,10 @@ export default class DestinationItemView {
       this.#element = createElement(this.template);
     }
     return this.#element;
+  }
+
+  get editButton () {
+    return this.#element.querySelector('.event__rollup-btn');
   }
 
   removeElement () {

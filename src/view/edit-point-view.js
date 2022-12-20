@@ -174,6 +174,14 @@ export default class EditPointView {
     return this.#element;
   }
 
+  get editButton () {
+    return this.#element.querySelector('.event__rollup-btn');
+  }
+
+  get submitButton () {
+    return this.#element.querySelector('.event--edit');
+  }
+
   removeElement () {
     this.#element = null;
   }

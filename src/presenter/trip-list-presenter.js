@@ -1,7 +1,7 @@
 import TripPointListView from '../view/trip-point-list-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
 import EditPointView from '../view/edit-point-view.js';
-import DestinationItemView from '../view/destination-item-view.js';
+import DestinationView from '../view/destination-view.js';
 import { render } from '../render.js';
 
 export default class TripListPresenter {
@@ -18,15 +18,15 @@ export default class TripListPresenter {
   }
 
   #renderDestination (destination) {
-    const destinationItemComponent = new DestinationItemView(destination);
+    const destinationComponent = new DestinationView(destination);
     const editDestinationPointComponent = new EditPointView(destination);
 
     const replaceDestinationToEdit = () => {
-      this.#tripListComponent.element.replaceChild(editDestinationPointComponent.element, destinationItemComponent.element);
+      this.#tripListComponent.element.replaceChild(editDestinationPointComponent.element, destinationComponent.element);
     };
 
     const replaceEditToDestination = () => {
-      this.#tripListComponent.element.replaceChild(destinationItemComponent.element, editDestinationPointComponent.element);
+      this.#tripListComponent.element.replaceChild(destinationComponent.element, editDestinationPointComponent.element);
     };
 
     const escKeyDownHandler = (evt) => {
@@ -37,7 +37,7 @@ export default class TripListPresenter {
       }
     };
 
-    destinationItemComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    destinationComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
       replaceDestinationToEdit();
       document.addEventListener('keydown', escKeyDownHandler);
     });
@@ -53,7 +53,7 @@ export default class TripListPresenter {
       document.removeEventListener('keydown', escKeyDownHandler);
     });
 
-    render(destinationItemComponent, this.#tripListComponent.element);
+    render(destinationComponent, this.#tripListComponent.element);
   }
 
   init () {
@@ -61,13 +61,9 @@ export default class TripListPresenter {
 
     render(this.#tripListComponent, this.#tripListContainer);
 
-    for (let i = 0; i < this.#points.length; i++) {
-      // render(new DestinationItemView(this.#points[i]), this.#tripListComponent.element);
-      // render(new EditPointView(this.#points[i]), this.#tripListComponent.element);
-
-      this.#renderDestination(this.#points[i]);
+    for (const point of this.#points) {
+      this.#renderDestination(point);
     }
-
   }
 
 }
