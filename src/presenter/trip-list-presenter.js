@@ -37,17 +37,17 @@ export default class TripListPresenter {
       }
     };
 
-    destinationComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    destinationComponent.editButton.addEventListener('click', () => {
       replaceDestinationToEdit();
       document.addEventListener('keydown', escKeyDownHandler);
     });
 
-    editDestinationPointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    editDestinationPointComponent.editButton.addEventListener('click', () => {
       replaceEditToDestination();
       document.removeEventListener('keydown', escKeyDownHandler);
     });
 
-    editDestinationPointComponent.element.querySelector('.event--edit').addEventListener('submit', (evt) => {
+    editDestinationPointComponent.submitButton.addEventListener('submit', (evt) => {
       evt.preventDefault();
       replaceEditToDestination();
       document.removeEventListener('keydown', escKeyDownHandler);

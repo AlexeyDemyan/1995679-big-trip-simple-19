@@ -58,7 +58,7 @@ export default class DestinationView {
   }
 
   get editButton () {
-    return this.#element.querySelector('.event__rollup-btn');
+    return this.element.querySelector('.event__rollup-btn');
   }
 
   removeElement () {
