@@ -55,11 +55,11 @@ const destinationMock1 = {
   name: 'Paris',
   pictures: [
     {
-      src: 'https://loremflickr.com/248/152?random=1',
+      src: '../img/photos/1.jpg',
       description: 'Paris picture placeholder',
     },
     {
-      src: 'https://loremflickr.com/248/152?random=2',
+      src: '../img/photos/2.jpg',
       description: 'Another picture placeholder',
     },
   ],
@@ -71,11 +71,11 @@ const destinationMock2 = {
   name: 'Chamonix',
   pictures: [
     {
-      src: 'https://loremflickr.com/248/152?random=3',
+      src: '../img/photos/3.jpg',
       description: 'Chamonix picture placeholder',
     },
     {
-      src: 'https://loremflickr.com/248/152?random=4',
+      src: '../img/photos/4.jpg',
       description: 'Some other picture placeholder',
     },
   ],
