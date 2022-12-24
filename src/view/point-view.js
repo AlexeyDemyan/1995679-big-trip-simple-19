@@ -9,7 +9,7 @@ const renderOffersForPointType = (offers) => offers.map((offer) => `<li class="e
   <span class="event__offer-price">${offer.price}</span>
   </li>`).join('');
 
-const createDestinationTemplate = (point) => {
+const createPointTemplate = (point) => {
   const offersForPointType = getOffersForPointType(point);
   const {basePrice, dateFrom, dateTo, type} = point;
   return `<li class="trip-events__item"><div class="event">
@@ -38,7 +38,7 @@ const createDestinationTemplate = (point) => {
 </div></li>`;
 };
 
-export default class DestinationView {
+export default class PointView {
   #element = null;
   #point = null;
 
@@ -47,7 +47,7 @@ export default class DestinationView {
   }
 
   get template () {
-    return createDestinationTemplate(this.#point);
+    return createPointTemplate(this.#point);
   }
 
   get element () {

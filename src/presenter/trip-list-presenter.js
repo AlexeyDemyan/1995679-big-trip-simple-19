@@ -1,68 +1,68 @@
-import TripPointListView from '../view/trip-point-list-view.js';
+import PointsListView from '../view/point-list-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
 import EditPointView from '../view/edit-point-view.js';
-import DestinationView from '../view/destination-view.js';
+import PointView from '../view/point-view.js';
 import { render } from '../render.js';
 
-export default class TripListPresenter {
-  #tripListContainer = null;
+export default class PointsListPresenter {
+  #pointListContainer = null;
   #pointsModel = null;
 
   #points = [];
 
-  #tripListComponent = new TripPointListView();
+  #pointsListComponent = new PointsListView();
 
-  constructor(tripListContainer, pointsModel) {
-    this.#tripListContainer = tripListContainer;
+  constructor(pointListContainer, pointsModel) {
+    this.#pointListContainer = pointListContainer;
     this.#pointsModel = pointsModel;
   }
 
-  #renderDestination (destination) {
-    const destinationComponent = new DestinationView(destination);
-    const editDestinationPointComponent = new EditPointView(destination);
+  #renderPoint (point) {
+    const pointComponent = new PointView(point);
+    const editPointComponent = new EditPointView(point);
 
-    const replaceDestinationToEdit = () => {
-      this.#tripListComponent.element.replaceChild(editDestinationPointComponent.element, destinationComponent.element);
+    const replacePointToEdit = () => {
+      this.#pointsListComponent.element.replaceChild(editPointComponent.element, pointComponent.element);
     };
 
-    const replaceEditToDestination = () => {
-      this.#tripListComponent.element.replaceChild(destinationComponent.element, editDestinationPointComponent.element);
+    const replaceEditToPoint = () => {
+      this.#pointsListComponent.element.replaceChild(pointComponent.element, editPointComponent.element);
     };
 
     const escKeyDownHandler = (evt) => {
       if (evt.key === 'Escape' || evt.key === 'Esc') {
         evt.preventDefault();
-        replaceEditToDestination();
+        replaceEditToPoint();
         document.removeEventListener('keydown', escKeyDownHandler);
       }
     };
 
-    destinationComponent.editButton.addEventListener('click', () => {
-      replaceDestinationToEdit();
+    pointComponent.editButton.addEventListener('click', () => {
+      replacePointToEdit();
       document.addEventListener('keydown', escKeyDownHandler);
     });
 
-    editDestinationPointComponent.editButton.addEventListener('click', () => {
-      replaceEditToDestination();
+    editPointComponent.editButton.addEventListener('click', () => {
+      replaceEditToPoint();
       document.removeEventListener('keydown', escKeyDownHandler);
     });
 
-    editDestinationPointComponent.submitButton.addEventListener('submit', (evt) => {
+    editPointComponent.submitButton.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      replaceEditToDestination();
+      replaceEditToPoint();
       document.removeEventListener('keydown', escKeyDownHandler);
     });
 
-    render(destinationComponent, this.#tripListComponent.element);
+    render(pointComponent, this.#pointsListComponent.element);
   }
 
   init () {
     this.#points = [...this.#pointsModel.points];
 
-    render(this.#tripListComponent, this.#tripListContainer);
+    render(this.#pointsListComponent, this.#pointListContainer);
 
     for (const point of this.#points) {
-      this.#renderDestination(point);
+      this.#renderPoint(point);
     }
   }
 
