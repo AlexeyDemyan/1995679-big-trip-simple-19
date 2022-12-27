@@ -1,21 +1,19 @@
-import ListFilterView from './view/list-filter-view.js';
-import ListSortView from './view/list-sort-view.js';
+import FilterView from './view/list-filter-view.js';
 import { render } from './render.js';
 import TripListPresenter from './presenter/trip-list-presenter.js';
-
-const AMOUNT_OF_DESTINATIONS_TO_RENDER = 3;
+import PointsModel from './model/points-model.js';
 
 const tripMainElement = document.querySelector('.trip-main');
 const tripMainTripControlsElement = tripMainElement.querySelector('.trip-main__trip-controls');
 const tripControlsFiltersElement = tripMainTripControlsElement.querySelector('.trip-controls__filters');
 
-const pageBodyElement = document.querySelector('.page-body');
-const pageBodyPageMainElement = pageBodyElement.querySelector('.page-body__page-main');
-const tripEventsElement = pageBodyPageMainElement.querySelector('.trip-events');
+const bodyElement = document.querySelector('.page-body');
+const bodyPageMainElement = bodyElement.querySelector('.page-body__page-main');
+const tripEventsElement = bodyPageMainElement.querySelector('.trip-events');
 
-const tripListPresenter = new TripListPresenter({tripListContainer:tripEventsElement});
+const pointsModel = new PointsModel();
+const tripListPresenter = new TripListPresenter(tripEventsElement, pointsModel);
 
-render(new ListFilterView(), tripControlsFiltersElement);
-render(new ListSortView(), tripEventsElement);
-tripListPresenter.init(AMOUNT_OF_DESTINATIONS_TO_RENDER);
+render(new FilterView(), tripControlsFiltersElement);
+tripListPresenter.init();
 
