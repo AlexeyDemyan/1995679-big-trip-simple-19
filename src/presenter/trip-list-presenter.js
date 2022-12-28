@@ -4,7 +4,7 @@ import EditPointView from '../view/edit-point-view.js';
 import PointView from '../view/point-view.js';
 import NoPointsView from '../view/no-points-view.js';
 import ListSortView from '../view/list-sort-view.js';
-import { render } from '../render.js';
+import { render } from '../framework/render.js';
 
 export default class PointsListPresenter {
   #pointListContainer = null;
@@ -22,40 +22,31 @@ export default class PointsListPresenter {
   }
 
   #renderPoint (point) {
-    const pointComponent = new PointView(point);
-    const editPointComponent = new EditPointView(point);
-
-    const replacePointToEdit = () => {
-      this.#pointsListComponent.element.replaceChild(editPointComponent.element, pointComponent.element);
-    };
-
-    const replaceEditToPoint = () => {
-      this.#pointsListComponent.element.replaceChild(pointComponent.element, editPointComponent.element);
-    };
-
     const escKeyDownHandler = (evt) => {
       if (evt.key === 'Escape' || evt.key === 'Esc') {
         evt.preventDefault();
-        replaceEditToPoint();
+        replaceEditToPoint.call(this);
         document.removeEventListener('keydown', escKeyDownHandler);
       }
     };
 
-    pointComponent.editButton.addEventListener('click', () => {
-      replacePointToEdit();
+    const pointComponent = new PointView(point, () => {
+      replacePointToEdit.call(this);
       document.addEventListener('keydown', escKeyDownHandler);
     });
 
-    editPointComponent.editButton.addEventListener('click', () => {
-      replaceEditToPoint();
+    const editPointComponent = new EditPointView(point, () => {
+      replaceEditToPoint.call(this);
       document.removeEventListener('keydown', escKeyDownHandler);
     });
 
-    editPointComponent.submitButton.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      replaceEditToPoint();
-      document.removeEventListener('keydown', escKeyDownHandler);
-    });
+    function replacePointToEdit () {
+      this.#pointsListComponent.element.replaceChild(editPointComponent.element, pointComponent.element);
+    }
+
+    function replaceEditToPoint () {
+      this.#pointsListComponent.element.replaceChild(pointComponent.element, editPointComponent.element);
+    }
 
     render(pointComponent, this.#pointsListComponent.element);
   }
