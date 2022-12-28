@@ -42,10 +42,10 @@ export default class PointView extends AbstractView {
   #point = null;
   #editButtonClickHandler = null;
 
-  constructor (point, onClick) {
+  constructor (point, onEdit) {
     super();
     this.#point = point;
-    this.#editButtonClickHandler = onClick;
+    this.#editButtonClickHandler = onEdit;
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editButtonClickHandler);
   }
 
