@@ -1,5 +1,5 @@
 import { getRandomArrayElement } from '../utils.js';
-import { POINT_TYPES } from '../const.js';
+import { POINT_TYPES, DESTINATIONS } from '../const.js';
 
 const mockOffers = [
   {
@@ -52,7 +52,7 @@ const mockOffers = [
 const destinationMock1 = {
   id: 1,
   description: 'Lorem lorem shuem',
-  name: 'Paris',
+  name: DESTINATIONS[0],
   pictures: [
     {
       src: '../img/photos/1.jpg',
@@ -68,7 +68,7 @@ const destinationMock1 = {
 const destinationMock2 = {
   id: 2,
   description: 'I am too lazy to write lorem text',
-  name: 'Chamonix',
+  name: DESTINATIONS[1],
   pictures: [
     {
       src: '../img/photos/3.jpg',
@@ -109,6 +109,8 @@ const getOffersForPointType = (point) => mockOffers.find((offer) => offer.type =
 
 const getDestinationForPointId = (point) => mockDestinations.find((destination) => destination.id === point.destination);
 
+const getDestinationForName = (name) => mockDestinations.find((destination) => destination.name === name);
+
 const getRandomPoint = () => getRandomArrayElement(mockPoints);
 
-export { getRandomPoint, getOffersForPointType, getDestinationForPointId };
+export { getRandomPoint, getOffersForPointType, getDestinationForPointId, getDestinationForName};

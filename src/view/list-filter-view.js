@@ -13,6 +13,10 @@ const createFilterTemplate = () => `<form class="trip-filters" action="#" method
 </form>`;
 
 export default class FilterView extends AbstractView {
+  constructor () {
+    super();
+  }
+
   get template () {
     return createFilterTemplate();
   }
