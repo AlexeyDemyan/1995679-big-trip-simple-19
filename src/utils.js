@@ -13,8 +13,13 @@ const capitalizeFirstLetter = (string) => {
   return result;
 };
 
+function sortByPrice (pointA, pointB) {
+  return pointA.basePrice - pointB.basePrice;
+}
+
 export {
   getRandomArrayElement,
   humanizeDate,
   capitalizeFirstLetter,
+  sortByPrice,
 };

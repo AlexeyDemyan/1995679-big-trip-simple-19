@@ -12,6 +12,25 @@ const FilterType = {
   FUTURE: 'future',
 };
 
+const SortType = {
+  DEFAULT: 'default',
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFER: 'offer',
+};
+
+const UserAction = {
+  UPDATE_POINT: 'UPDATE_POINT',
+  DELETE_POINT: 'DELETE_POINT',
+};
+
+const UpdateType = {
+  PATCH: 'PATCH',
+  INIT: 'INIT',
+};
+
 export {
   POINT_TYPES,
   DATE_FORMAT_DAY_AND_MONTH,
@@ -19,5 +38,8 @@ export {
   DESTINATIONS_COUNT,
   DATE_FORMAT_DATE_AND_TIME,
   FilterType,
+  SortType,
   DESTINATIONS,
+  UserAction,
+  UpdateType,
 };

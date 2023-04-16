@@ -136,8 +136,9 @@ export default class EditPointView extends AbstractStatefulView {
   #handleEventTypeChange = null;
   #handleDestinationChange = null;
   #handleEditFormSubmit = null;
+  #handleDelete = null;
 
-  constructor(point, onClose) {
+  constructor(point, onClose, onDelete) {
     super();
     this._setState(EditPointView.parsePointToState(point));
 
@@ -153,6 +154,7 @@ export default class EditPointView extends AbstractStatefulView {
       });
     };
     this.#handleEditFormSubmit = onClose;
+    this.#handleDelete = onDelete;
     this._restoreHandlers();
   }
 
@@ -173,6 +175,9 @@ export default class EditPointView extends AbstractStatefulView {
     this.element
       .querySelector('.event__input--destination')
       .addEventListener('change', this.#handleDestinationChange);
+    this.element
+      .querySelector('.event__reset-btn')
+      .addEventListener('click', this.#handleDelete);
   }
 
   #formSubmitHandler = (evt) => {
